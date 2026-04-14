@@ -1,0 +1,15 @@
+{
+"dashboard": {
+"title": "SOC Monitoring Dashboard",
+"panels": [
+{
+"type": "chart",
+"title": "Alerts by Severity"
+},
+{
+"type": "timechart",
+"title": "Attack Timeline"
+}
+]
+}
+}
