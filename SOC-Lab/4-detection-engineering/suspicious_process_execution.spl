@@ -1,0 +1,11 @@
+⚙️ Suspicious Process Execution
+🔍 Logic
+
+Detect unusual commands
+
+💻 SPL
+index=* ("nc" OR "netcat")
+| stats count by user, host
+🔥 Severity
+
+HIGH
