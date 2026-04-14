@@ -1,0 +1,20 @@
+🔑 SSH Brute Force Detection
+🎯 MITRE
+T1110
+🔍 Logic
+
+Multiple failed login attempts
+
+💻 SPL
+index=* "Failed password"
+| stats count by src_ip
+| where count > 5
+📊 Example
+Failed password for invalid user
+⚠️ False Positives
+user typing wrong password
+⚙️ Tuning
+increase threshold (10+ attempts)
+🔥 Severity
+
+MEDIUM → HIGH
