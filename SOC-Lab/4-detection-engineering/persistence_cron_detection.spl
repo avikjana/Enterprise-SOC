@@ -1,0 +1,17 @@
+Persistence Detection (Cron Job)
+🎯 MITRE
+T1053
+🔍 Logic
+
+Detect cron modifications
+
+💻 SPL
+index=* "crontab"
+| stats count by user, command
+📊 Example
+crontab -e
+⚠️ False Positives
+system maintenance jobs
+⚙️ Tuning
+alert only for suspicious commands
+🔥 Severity-HIGH
