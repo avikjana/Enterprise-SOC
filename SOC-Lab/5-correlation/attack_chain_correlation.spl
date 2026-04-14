@@ -1,0 +1,126 @@
+# 🔥 Attack Chain Correlation (Full SOC View)
+
+## 📌 Objective
+
+Correlate multiple attack stages to detect a **complete attack chain** instead of isolated events.
+
+---
+
+## 🧠 Why This is IMPORTANT?
+
+Single alert:
+❌ may be false positive
+
+Multiple correlated alerts:
+✅ confirmed attack
+
+👉 Real SOC always looks for **attack sequence**
+
+---
+
+## 🎯 Attack Stages Covered
+
+1. Reverse Shell (Initial Access)
+2. Privilege Escalation (sudo)
+3. Credential Dumping (/etc/shadow)
+4. Persistence (cron job)
+
+---
+
+## 🔍 SPL Query (FULL CORRELATION)
+
+```spl id="corr1"
+index=*
+(
+  "bash -i" OR "/dev/tcp/" 
+  OR "sudo" 
+  OR "/etc/shadow" 
+  OR "crontab"
+)
+| eval stage=case(
+    searchmatch("bash -i") OR searchmatch("/dev/tcp/"), "Initial Access",
+    searchmatch("sudo"), "Privilege Escalation",
+    searchmatch("/etc/shadow"), "Credential Dumping",
+    searchmatch("crontab"), "Persistence"
+)
+| table _time host user stage
+| sort _time
+```
+
+---
+
+## 📊 Expected Output
+
+| Time  | Host   | User | Stage           |
+| ----- | ------ | ---- | --------------- |
+| 10:01 | ubuntu | user | Initial Access  |
+| 10:02 | ubuntu | user | Priv Esc        |
+| 10:03 | ubuntu | root | Credential Dump |
+| 10:04 | ubuntu | root | Persistence     |
+
+---
+
+## 🧠 Interpretation
+
+If events appear in sequence:
+
+👉 This confirms:
+✔ attacker gained access
+✔ escalated privileges
+✔ accessed credentials
+✔ established persistence
+
+---
+
+## 🔥 Advanced Correlation (Transaction Based)
+
+```spl id="corr2"
+index=*
+("bash -i" OR "sudo" OR "/etc/shadow" OR "crontab")
+| transaction host maxspan=10m
+```
+
+---
+
+## 🧠 Why Transaction?
+
+* Groups events into one attack session
+* Helps identify full attack lifecycle
+
+---
+
+## ⚠️ Tuning Strategy
+
+* Reduce time window (5–10 mins)
+* Filter known admin activity
+* Use specific index instead of `index=*`
+
+---
+
+## 🚨 Severity
+
+CRITICAL (Multi-stage confirmed attack)
+
+---
+
+## 🧠 SOC Insight
+
+👉 This is what separates:
+
+* Beginner → sees alerts
+* SOC Analyst → sees attack story
+
+---
+
+## ✅ Final Outcome
+
+You can now:
+✔ detect full attack lifecycle
+✔ reduce false positives
+✔ perform real SOC analysis
+
+---
+
+## 🚀 Next Step
+
+➡️ Dashboards + Automation
