@@ -1,0 +1,12 @@
+📤 Data Exfiltration Detection
+🔍 Logic
+
+Large outbound traffic
+
+💻 SPL
+index=* 
+| stats sum(bytes) by dest_ip
+| where sum(bytes) > 1000000
+🔥 Severity
+
+HIGH
