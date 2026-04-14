@@ -310,6 +310,7 @@ This project demonstrates a **complete SOC pipeline**, from attack simulation to
 ## 👤 Author
 
 **Avik Jana**
+
 Cyber Security Enthusiast | SOC Analyst Aspirant
 
 ---
