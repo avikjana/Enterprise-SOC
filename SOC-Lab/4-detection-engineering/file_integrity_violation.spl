@@ -1,0 +1,10 @@
+File Integrity Violation
+🔍 Logic
+
+Detect critical file changes
+
+💻 SPL
+index=* ("passwd_changes" OR "shadow_access")
+🔥 Severity
+
+HIGH
