@@ -306,3 +306,14 @@ pip install -r requirements.txt
 This project demonstrates a **complete SOC pipeline**, from attack simulation to detection and investigation, using a resource-efficient architecture aligned with real-world practices.
 
 ---
+
+## 👤 Author
+
+**Avik Jana**
+Cyber Security Enthusiast | SOC Analyst Aspirant
+
+---
+
+## 📌 Note
+
+This project is built for educational purposes to simulate real-world SOC operations in a controlled lab environment.
