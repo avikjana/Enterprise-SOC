@@ -1,0 +1,15 @@
+Network Scan Detection (Suricata)
+🎯 MITRE
+T1046
+🔍 Logic
+
+Detect scanning behavior
+
+💻 SPL
+index=* "nmap"
+| stats count by src_ip
+📊 Example
+ET SCAN Nmap
+🔥 Severity
+
+MEDIUM
